@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TO_DO_LIST.Models.Task>
+
+@{
+    ViewData["Title"] = "Tasks";
+    //Layout = "~/Views/_ViewStart.cshtml";
+}
+
+<h1>Tasks</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form method="get" asp-action="Index">
+    <input placeholder="Search by title or description" type="search" name="keywordSearch" class="search-field"/>
+    <input type="submit" value="GO" name="keywordSearch" class="btn-primary"/>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsFavorate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsFinished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeAdded)
+            </th>
+            <th>
+                Categories
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskDescription)
+                </td>
+                <td>
+                    <img src="~/images/@item.PostImageUrl" height="100" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFavorate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFinished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeAdded)
+                </td>
+
+                <td>
+
+                    @foreach (var taskCategory in item.TaskCategories)
+                    {
+                        <span>@taskCategory.Category.CategoryName, </span>
+                    }
+
+                </td>
+
+                <td>
+                    <form asp-action="Delete">
+                        <input type="hidden" name="Id" value="@item.TaskId"/>
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure ???؟')"><i class="fa fa-trash"></i>Delete</button>
+                    </form>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.TaskId">Edit</a> |
+                    <a asp-action="Details" class="btn btn-success" asp-route-id="@item.TaskId">Details</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

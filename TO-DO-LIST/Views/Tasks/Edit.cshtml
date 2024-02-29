@@ -1,0 +1,94 @@
+﻿@model TO_DO_LIST.Models.Task
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Task</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TaskId" />
+            <div class="form-group">
+                <label asp-for="TaskName" class="control-label"></label>
+                <input asp-for="TaskName" class="form-control" />
+                <span asp-validation-for="TaskName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TaskDescription" class="control-label"></label>
+                <input asp-for="TaskDescription" class="form-control" />
+                <span asp-validation-for="TaskDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PostImageUrl" class="control-label"></label>
+                <input asp-for="PostImageUrl" type="file" id="PostImageUrl" accept='image/*' name="PostImageUrl" class="form-control" onchange="readErrorMsg(this)">
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFavorate" /> @Html.DisplayNameFor(model => model.IsFavorate)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFinished" /> @Html.DisplayNameFor(model => model.IsFinished)
+                </label>
+            </div>
+
+            <div class="input-group my-3 file-area">
+                <label for="categories" class="mb-2">Categories</label>
+                <div class="input-group mb-3">
+                    <select id="categories" multiple style="width: 100% !important;" name="categories[]" class="form-select">
+                        <option disabled selected>Select Categories</option>
+                        @if (ViewBag.categories != null)
+                        {
+                            foreach (var category in ViewBag.categories)
+                            {
+                                if (ViewBag.selectedCategoriesIds != null)
+                                {
+                                    if (ViewBag.selectedCategoriesIds.Contains(category.CategoryId))
+                                    {
+                                        <option selected value="@category.CategoryId">@category.CategoryName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@category.CategoryId">@category.CategoryName</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="@category.CategoryId">@category.CategoryName</option>
+                                }
+                            }
+                        }
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input hidden asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

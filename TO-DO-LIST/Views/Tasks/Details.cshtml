@@ -1,0 +1,61 @@
+﻿@model TO_DO_LIST.Models.Task
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Task</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TaskName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TaskName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TaskDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TaskDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PostImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PostImageUrl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsFavorate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsFavorate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsFinished)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsFinished)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeAdded)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TimeAdded)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PostImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.PostImageUrl" height="200" width="200" />
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.TaskId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
